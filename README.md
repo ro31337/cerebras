@@ -1,5 +1,7 @@
 # LiteLLM Proxy: Cerebras → Z.AI Fallback
 
+[По-русски](README-RU.md)
+
 LiteLLM proxy server with automatic fallback from Cerebras to Z.AI when rate limits are exceeded.
 
 ## Why This Setup?
@@ -204,6 +206,8 @@ You should see:
 
 ## Files
 
+- `README.md` - This file (English)
+- `README-RU.md` - Russian version
 - `config.yaml` - LiteLLM configuration with fallback
 - `.env` - API keys for Cerebras and Z.AI
 - `.env.example` - Template for environment variables
