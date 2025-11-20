@@ -1,0 +1,7 @@
+[project]
+name = "cerebras"
+version = "0.1.0"
+dependencies = [
+    "litellm[proxy]",
+    "openai"
+]

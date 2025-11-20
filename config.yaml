@@ -1,0 +1,50 @@
+model_list:
+  # glm-4.6: Primary (Cerebras) with fallback to Z.AI - for Opus/Sonnet
+  - model_name: glm-4.6
+    litellm_params:
+      model: cerebras/zai-glm-4.6
+      api_key: os.environ/CEREBRAS_API_KEY
+    model_info:
+      input_cost_per_token: 0.0
+      output_cost_per_token: 0.0
+
+  # glm-4.6: Fallback on Z.AI - for Opus/Sonnet
+  - model_name: zai-glm-4.6
+    litellm_params:
+      model: anthropic/glm-4.6
+      api_key: os.environ/ZAI_API_KEY
+      api_base: https://api.z.ai/api/anthropic
+    model_info:
+      input_cost_per_token: 0.0
+      output_cost_per_token: 0.0
+
+  # glm-4.5-air: Only Z.AI, no fallback - for Haiku (fast, cheap tasks)
+  - model_name: glm-4.5-air
+    litellm_params:
+      model: anthropic/glm-4.5-air
+      api_key: os.environ/ZAI_API_KEY
+      api_base: https://api.z.ai/api/anthropic
+    model_info:
+      input_cost_per_token: 0.0
+      output_cost_per_token: 0.0
+
+# Router settings
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 3
+  timeout: 600
+  allowed_fails: 1
+  cooldown_time: 60
+
+# Proxy settings with fallback configuration
+litellm_settings:
+  drop_params: true
+  fallbacks: [{"glm-4.6": ["zai-glm-4.6"]}]  # Fallback from Cerebras to Z.AI on errors
+  num_retries: 2  # Retries before attempting fallback
+  disable_spend_logs: true  # Disable cost tracking to avoid errors for unknown models
+  set_verbose: false  # Disable verbose logging
+
+# General settings
+general_settings:
+  master_key: sk-1234
+  disable_error_logs: true  # Suppress LLM exception logs
