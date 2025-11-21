@@ -1,3 +1,5 @@
+# Увага! Не заработало нихуя в итоге. Ебись оно всё...
+
 # LiteLLM Proxy: Cerebras → Z.AI Fallback
 
 [По-русски](README-RU.md)
